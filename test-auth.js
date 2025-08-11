@@ -1,4 +1,4 @@
-const API_URL = 'https://youtube-manager-5z9c6ct5v-oseong27436-gmailcoms-projects.vercel.app';
+const API_URL = 'https://youtube-manager-puce.vercel.app';
 
 // 테스트용 사용자 정보
 const testUser = {
