@@ -31,6 +31,10 @@ app.get('/api/health', (req, res) => {
 const authRoutes = require('./api/auth');
 app.use('/api/auth', authRoutes);
 
+// 디버그 라우트 (임시)
+const debugRoutes = require('./api/debug');
+app.use('/api/debug', debugRoutes);
+
 // 채널 API 라우트 (인증 필요)
 const channelRoutes = require('./api/channels');
 const { authenticate } = require('./middleware/auth');
