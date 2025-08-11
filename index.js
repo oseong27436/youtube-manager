@@ -27,9 +27,14 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// 채널 API 라우트
+// 인증 API 라우트 (공개)
+const authRoutes = require('./api/auth');
+app.use('/api/auth', authRoutes);
+
+// 채널 API 라우트 (인증 필요)
 const channelRoutes = require('./api/channels');
-app.use('/api/channels', channelRoutes);
+const { authenticate } = require('./middleware/auth');
+app.use('/api/channels', authenticate, channelRoutes);
 
 // Vercel은 서버리스 환경이므로 listen을 사용하지 않음
 // 개발 환경에서만 사용

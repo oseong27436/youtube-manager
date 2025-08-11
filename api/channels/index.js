@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Channel = require('../../models/Channel');
 
-// 모든 채널 가져오기
+// 현재 사용자의 채널만 가져오기
 router.get('/', async (req, res) => {
   try {
-    const channels = await Channel.find();
+    // req.user는 authenticate 미들웨어에서 설정됨
+    const channels = await Channel.find({ 
+      _id: { $in: req.user.channels } 
+    });
     res.json(channels);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -17,6 +20,11 @@ router.post('/', async (req, res) => {
   try {
     const channel = new Channel(req.body);
     await channel.save();
+    
+    // 사용자의 channels 배열에 추가
+    req.user.channels.push(channel._id);
+    await req.user.save();
+    
     res.status(201).json(channel);
   } catch (error) {
     res.status(400).json({ error: error.message });
