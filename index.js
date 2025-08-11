@@ -1,0 +1,43 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// MongoDB 연결
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('MongoDB connection error:', err));
+}
+
+// 기본 라우트
+app.get('/', (req, res) => {
+  res.json({ message: 'YouTube Channel Management API' });
+});
+
+// API 라우트들을 여기에 추가
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// 채널 API 라우트
+const channelRoutes = require('./api/channels');
+app.use('/api/channels', channelRoutes);
+
+// Vercel은 서버리스 환경이므로 listen을 사용하지 않음
+// 개발 환경에서만 사용
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
