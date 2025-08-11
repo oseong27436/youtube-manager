@@ -16,7 +16,9 @@
       "Bash(start https://vercel.com)",
       "Bash(start https://vercel.com/oseong27436-gmailcoms-projects/youtube-manager/settings/environment-variables)",
       "Bash(node:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(rm:*)",
+      "Bash(del nul)"
     ],
     "deny": []
   }

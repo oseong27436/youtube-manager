@@ -5,11 +5,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "vercel-dev": "vercel dev",
-    "auto-deploy": "node auto-deploy.js",
-    "auto-deploy-vercel": "node vercel-auto-deploy.js",
-    "deploy": "vercel --prod",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "vercel --prod"
   },
   "keywords": [],
   "author": "",

@@ -55,11 +55,7 @@ router.post('/register', async (req, res) => {
     });
   } catch (error) {
     console.error('Register error:', error);
-    res.status(500).json({ 
-      error: '서버 오류가 발생했습니다',
-      details: error.message,
-      type: error.name
-    });
+    res.status(500).json({ error: '서버 오류가 발생했습니다' });
   }
 });
 
