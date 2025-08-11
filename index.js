@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -17,9 +18,12 @@ if (process.env.MONGODB_URI) {
     .catch(err => console.error('MongoDB connection error:', err));
 }
 
-// 기본 라우트
+// 정적 파일 제공 (public 폴더)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// 기본 라우트 - index.html 제공
 app.get('/', (req, res) => {
-  res.json({ message: 'YouTube Channel Management API' });
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // API 라우트들을 여기에 추가
